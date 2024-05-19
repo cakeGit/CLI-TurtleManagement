@@ -1,9 +1,12 @@
 import CLIApp.Application.buildScreenComponents
-import `interface`.InputHandler
 import com.googlecode.lanterna.TerminalPosition
 import com.googlecode.lanterna.TerminalSize
+import com.googlecode.lanterna.screen.Screen
+import com.googlecode.lanterna.screen.TerminalScreen
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory
 import com.googlecode.lanterna.terminal.Terminal
+import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration
+import `interface`.InputHandler
 import `interface`.ScreenComponent
 import `interface`.components.TurtleActionList
 import `interface`.components.TurtleOverviewList
@@ -25,6 +28,8 @@ class CLIApp {
         val TERMINAL: Terminal = createTerminal();
         val SCHEDULER = Executors.newScheduledThreadPool(1);
 
+        var screen: TerminalScreen? = null;
+
         fun buildScreenComponents() {
             SCREEN_COMPONENTS.add(TurtleOverviewList());
             SCREEN_COMPONENTS.add(TurtleActionList());
@@ -32,10 +37,22 @@ class CLIApp {
         }
 
         private fun createTerminal(): Terminal {
-            return DefaultTerminalFactory(System.out, System.`in`, Charset.forName("UTF8"))
+            var terminal = DefaultTerminalFactory(System.out, System.`in`, Charset.forName("UTF-8"))
                 .setTerminalEmulatorTitle("TURTLE CLI <3")
                 .setInitialTerminalSize(getApplicationTerminalSize())
+                .setTerminalEmulatorFontConfiguration(AWTTerminalFontConfiguration.getDefault())
+                .setForceAWTOverSwing(true)
                 .createTerminal();
+//            val screen: Screen = TerminalScreen(terminal)
+//            screen.startScreen()
+//            screen.newTextGraphics().putString(4, 2, "重新启动超时")
+//            screen.setCharacter(4, 5, TextCharacter.fromString("重新启动超时")[0])
+//            screen.refresh()
+//            Thread.sleep(5000)
+//            screen.stopScreen();
+            screen = TerminalScreen(terminal)
+            screen!!.startScreen();
+            return terminal;
         }
 
         fun getApplicationTerminalSize(): TerminalSize {
@@ -50,10 +67,12 @@ class CLIApp {
         fun redraw() {
             TICK_HOLDER++;
             for (screenComponent in SCREEN_COMPONENTS) {
-                TERMINAL.newTextGraphics().drawImage(
+                screen!!
+                screen!!.newTextGraphics().drawImage(
                     TerminalPosition(screenComponent.componentDisplay.x, screenComponent.componentDisplay.y),
                     screenComponent.draw()
                 );
+                screen!!.refresh();
                 TERMINAL.flush()
             }
         }

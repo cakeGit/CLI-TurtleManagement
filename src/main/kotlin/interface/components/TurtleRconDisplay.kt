@@ -22,7 +22,7 @@ class TurtleRconDisplay : ScreenComponent(ComponentDisplay(240 - TurtleOverviewL
     }
 
     private fun createColumnHeader(): String {
-        return Text.enforceWidth("TURTLE", 20) + Text.enforceWidth("CONSOLE", getWidth() -20);
+        return Text.enforceWidth("甲鱼", 20) + Text.enforceWidth("控制台", getWidth() -20);
     }
 
 

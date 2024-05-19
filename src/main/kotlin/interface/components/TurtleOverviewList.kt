@@ -15,7 +15,7 @@ class TurtleOverviewList : ScreenComponent(ComponentDisplay(totalWidth, 67, 0, 0
 
     companion object DisplayInfo {
         val entryWidth = 100;
-        val selectColumnWidth = "SELECT".length;
+        val selectColumnWidth = "选择".length;
         val totalWidth = entryWidth + selectColumnWidth;
         val columnWidth = entryWidth / 5;
     }
@@ -76,17 +76,17 @@ class TurtleOverviewList : ScreenComponent(ComponentDisplay(totalWidth, 67, 0, 0
     private fun buildOverviewEntry(currentTurtle: ConnectedTurtle): String {
         return Text.enforceWidth(currentTurtle.getName(), columnWidth) +
                 Text.enforceWidth(currentTurtle.status.statusTextSupplier.invoke(currentTurtle.status, currentTurtle), columnWidth) +
-                Text.enforceWidth(if (currentTurtle.devBuild) "DEV" else "STABLE", columnWidth) +
-                Text.enforceWidth(currentTurtle.task?.name ?: "NONE", columnWidth) +
-                Text.enforceWidth(currentTurtle.networkStatus.name, columnWidth);
+                Text.enforceWidth(if (currentTurtle.devBuild) "发育" else "稳定", columnWidth) +
+                Text.enforceWidth(currentTurtle.task?.name ?: "无", columnWidth) +
+                Text.enforceWidth(currentTurtle.networkStatus.display, columnWidth);
     }
 
     private fun createColumnHeader() : String {
-        return "SELECT" + Text.enforceWidth("NAME", columnWidth) +
-                Text.enforceWidth("STATUS", columnWidth) +
-                Text.enforceWidth("BUILDS", columnWidth) +
-                Text.enforceWidth("TASK", columnWidth) +
-                Text.enforceWidth("NET", columnWidth);
+        return "选择" + Text.enforceWidth("名字", columnWidth) +
+                Text.enforceWidth("状况", columnWidth) +
+                Text.enforceWidth("源码", columnWidth) +
+                Text.enforceWidth("任务", columnWidth) +
+                Text.enforceWidth("网络", columnWidth);
     }
 
 

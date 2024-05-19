@@ -65,17 +65,18 @@ class TurtleActionList : ScreenComponent(ComponentDisplay(240 - TurtleOverviewLi
                 graphics.backgroundColor = ANSI.RED_BRIGHT;
             }
 
-            graphics.putString(0, 6, Text.enforceWidth("CONFIRM ACTION SELECTION", getWidth()));
+            graphics.putString(0, 6, Text.enforceWidth("确认动作", getWidth()));
 
             graphics.backgroundColor = ANSI.GREEN_BRIGHT;
             graphics.putString(0, 7, Text.enforceWidth(
-                (if (TurtleActionManager.CONFIRM_SELECTION) ">" else "") + "YES",
+                (if (TurtleActionManager.CONFIRM_SELECTION) ">" else "") + "对",
                 ceil(getWidth()/2.0).toInt()));
 
             graphics.backgroundColor = ANSI.RED_BRIGHT;
             graphics.putString(ceil(getWidth()/2.0).toInt(), 7, Text.enforceWidth(
-                (if (!TurtleActionManager.CONFIRM_SELECTION) ">" else "") + "NO",
+                (if (!TurtleActionManager.CONFIRM_SELECTION) ">" else "") + "不",
                 floor(getWidth()/2.0).toInt()));
+            graphics.putString(0, 60, "确认动作");
         }
     }
 
