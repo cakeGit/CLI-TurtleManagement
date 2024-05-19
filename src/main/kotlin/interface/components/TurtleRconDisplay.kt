@@ -8,7 +8,7 @@ import `interface`.Text
 
 class TurtleRconDisplay : ScreenComponent(ComponentDisplay(240 - TurtleOverviewList.totalWidth, 50, TurtleOverviewList.totalWidth, 8)) {
 
-    override fun draw(image: TextImage) {
+    override fun draw(image: TextImage): TextImage {
         val graphics = image.newTextGraphics();
 
         if (TurtleRconDisplayManager.INPUT_CONSUMER.hasFocus) {
@@ -19,6 +19,8 @@ class TurtleRconDisplay : ScreenComponent(ComponentDisplay(240 - TurtleOverviewL
             graphics.foregroundColor = TextColor.ANSI.WHITE;
         }
         graphics.putString(0, 0, createColumnHeader());
+
+        return image;
     }
 
     private fun createColumnHeader(): String {

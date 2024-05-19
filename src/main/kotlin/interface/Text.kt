@@ -6,8 +6,10 @@ import kotlin.math.*
 class Text {
     companion object {
         fun enforceWidth(string: String, intendedWidth: Int): String {
-            if (string.length > intendedWidth) {
-                val scrollLength = string.length;
+            var length = calculateActualLength(string);
+            
+            if (length > intendedWidth) {
+                val scrollLength = length;
                 val center: Double = scrollLength / 2.0;
                 val scroll: Double = (CLIApp.TICK_HOLDER / 10.0) % scrollLength;
 
@@ -20,12 +22,20 @@ class Text {
                 return string.substring(start, start + intendedWidth)
             }
 
-            val padding = intendedWidth - string.length;
+            val padding = intendedWidth - length;
 
             val paddingLeft: Int = floor(padding / 2f).toInt();
             val paddingRight: Int = ceil(padding / 2f).toInt();
 
             return " ".repeat(paddingLeft) + string + " ".repeat(paddingRight);
+        }
+
+        private fun calculateActualLength(string: String): Int {
+            var len = 0;
+            for (char in string.asIterable()) {
+                len += if (Character.UnicodeBlock.of(char) == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS) 2 else 1;
+            }
+            return len;
         }
 
         fun wrapString(string: String, intendedWidth: Int): List<String> {

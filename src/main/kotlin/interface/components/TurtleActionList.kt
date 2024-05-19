@@ -2,6 +2,7 @@ package `interface`.components
 
 import CLIApp
 import action.SelectableActions
+import com.googlecode.lanterna.TextCharacter
 import `interface`.manager.TurtleActionManager
 import com.googlecode.lanterna.TextColor.ANSI
 import com.googlecode.lanterna.graphics.TextImage
@@ -12,7 +13,7 @@ import kotlin.math.floor
 
 class TurtleActionList : ScreenComponent(ComponentDisplay(240 - TurtleOverviewList.totalWidth, 8, TurtleOverviewList.totalWidth, 0))  {
 
-    override fun draw(image: TextImage) {
+    override fun draw(image: TextImage): TextImage {
         val graphics = image.newTextGraphics();
 
         if (TurtleActionManager.INPUT_CONSUMER.hasFocus) {
@@ -76,8 +77,8 @@ class TurtleActionList : ScreenComponent(ComponentDisplay(240 - TurtleOverviewLi
             graphics.putString(ceil(getWidth()/2.0).toInt(), 7, Text.enforceWidth(
                 (if (!TurtleActionManager.CONFIRM_SELECTION) ">" else "") + "不",
                 floor(getWidth()/2.0).toInt()));
-            graphics.putString(0, 60, "确认动作");
         }
+        return image.resize(image.size, TextCharacter(' '))
     }
 
     private fun createColumnHeader(): String {

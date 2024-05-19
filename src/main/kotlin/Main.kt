@@ -37,19 +37,12 @@ class CLIApp {
         }
 
         private fun createTerminal(): Terminal {
-            var terminal = DefaultTerminalFactory(System.out, System.`in`, Charset.forName("UTF-8"))
+            val terminal = DefaultTerminalFactory(System.out, System.`in`, Charsets.ISO_8859_1)
                 .setTerminalEmulatorTitle("TURTLE CLI <3")
                 .setInitialTerminalSize(getApplicationTerminalSize())
                 .setTerminalEmulatorFontConfiguration(AWTTerminalFontConfiguration.getDefault())
                 .setForceAWTOverSwing(true)
                 .createTerminal();
-//            val screen: Screen = TerminalScreen(terminal)
-//            screen.startScreen()
-//            screen.newTextGraphics().putString(4, 2, "重新启动超时")
-//            screen.setCharacter(4, 5, TextCharacter.fromString("重新启动超时")[0])
-//            screen.refresh()
-//            Thread.sleep(5000)
-//            screen.stopScreen();
             screen = TerminalScreen(terminal)
             screen!!.startScreen();
             return terminal;
@@ -67,13 +60,12 @@ class CLIApp {
         fun redraw() {
             TICK_HOLDER++;
             for (screenComponent in SCREEN_COMPONENTS) {
-                screen!!
                 screen!!.newTextGraphics().drawImage(
                     TerminalPosition(screenComponent.componentDisplay.x, screenComponent.componentDisplay.y),
                     screenComponent.draw()
                 );
                 screen!!.refresh();
-                TERMINAL.flush()
+                //TERMINAL.flush()
             }
         }
 

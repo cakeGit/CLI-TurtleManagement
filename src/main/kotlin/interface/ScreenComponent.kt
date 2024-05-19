@@ -8,11 +8,11 @@ abstract class ScreenComponent(val componentDisplay: ComponentDisplay) {
 
     fun draw() : TextImage {
         val image = BasicTextImage(componentDisplay.width, componentDisplay.height);
-        draw(image);
+        val newImage = draw(image);
         return image;
     }
 
-    abstract fun draw(image: TextImage)
+    abstract fun draw(image: TextImage) : TextImage
 
     fun getWidth() : Int{
         return componentDisplay.width;

@@ -15,12 +15,12 @@ class TurtleOverviewList : ScreenComponent(ComponentDisplay(totalWidth, 67, 0, 0
 
     companion object DisplayInfo {
         val entryWidth = 100;
-        val selectColumnWidth = "选择".length;
+        val selectColumnWidth = Integer.max("选择".length, 4);
         val totalWidth = entryWidth + selectColumnWidth;
         val columnWidth = entryWidth / 5;
     }
 
-    override fun draw(image: TextImage) {
+    override fun draw(image: TextImage): TextImage {
         val graphics = image.newTextGraphics();
 
         if (TurtleSelectionManager.INPUT_CONSUMER.hasFocus) {
@@ -69,8 +69,9 @@ class TurtleOverviewList : ScreenComponent(ComponentDisplay(totalWidth, 67, 0, 0
                 TerminalSize(1, TurtleSelectionManager.TURTLE_SELECTION_SIZE),
                 '>'
             );
-
         }
+
+        return image;
     }
 
     private fun buildOverviewEntry(currentTurtle: ConnectedTurtle): String {
