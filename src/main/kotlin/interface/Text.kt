@@ -6,7 +6,7 @@ import kotlin.math.*
 class Text {
     companion object {
         fun enforceWidth(string: String, intendedWidth: Int): String {
-            var length = calculateActualLength(string);
+            val length = calculateActualLength(string);
             
             if (length > intendedWidth) {
                 val scrollLength = length;

@@ -40,10 +40,9 @@ class CLIApp {
             val terminal = DefaultTerminalFactory(System.out, System.`in`, Charsets.ISO_8859_1)
                 .setTerminalEmulatorTitle("TURTLE CLI <3")
                 .setInitialTerminalSize(getApplicationTerminalSize())
-                .setTerminalEmulatorFontConfiguration(AWTTerminalFontConfiguration.getDefault())
-                .setForceAWTOverSwing(true)
                 .createTerminal();
-            screen = TerminalScreen(terminal)
+            screen = TerminalScreen(terminal);
+            screen!!.cursorPosition = null;
             screen!!.startScreen();
             return terminal;
         }
@@ -64,9 +63,9 @@ class CLIApp {
                     TerminalPosition(screenComponent.componentDisplay.x, screenComponent.componentDisplay.y),
                     screenComponent.draw()
                 );
-                screen!!.refresh();
                 //TERMINAL.flush()
             }
+            screen!!.refresh();
         }
 
         fun getFocusBlink(): Boolean {
