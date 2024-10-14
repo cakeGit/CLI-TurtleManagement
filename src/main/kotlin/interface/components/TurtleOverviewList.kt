@@ -45,10 +45,10 @@ class TurtleOverviewList : ScreenComponent(ComponentDisplay(totalWidth, 67, 0, 0
             if (TurtleSelectionManager.isTurtleSelected(currentTurtle)) {
                 if (CLIApp.getPassiveBlink()) {
                     graphics.backgroundColor = ANSI.BLUE_BRIGHT;
-                    graphics.foregroundColor = ANSI.WHITE_BRIGHT;
+                    graphics.foregroundColor = ANSI.WHITE;
                 } else {
                     graphics.backgroundColor = ANSI.BLUE_BRIGHT;
-                    graphics.foregroundColor = ANSI.WHITE;
+                    graphics.foregroundColor = ANSI.WHITE_BRIGHT;
                 }
                 graphics.setCharacter(selectColumnWidth/2, y+1, '#');
             }

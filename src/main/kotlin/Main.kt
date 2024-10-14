@@ -35,6 +35,7 @@ class CLIApp {
             return DefaultTerminalFactory(System.out, System.`in`, Charset.forName("UTF8"))
                 .setTerminalEmulatorTitle("TURTLE CLI <3")
                 .setInitialTerminalSize(getApplicationTerminalSize())
+                .setForceAWTOverSwing(true)
                 .createTerminal();
         }
 
@@ -59,11 +60,11 @@ class CLIApp {
         }
 
         fun getFocusBlink(): Boolean {
-            return TICK_HOLDER % 40 < 20;
+            return TICK_HOLDER % 10 < 5;
         }
 
         fun getIndicatorBlink(): Boolean {
-            return TICK_HOLDER % 40 < 10;
+            return TICK_HOLDER % 20 < 5;
         }
 
         fun getPassiveBlink(): Boolean {

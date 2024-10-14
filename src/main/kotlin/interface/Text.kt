@@ -56,7 +56,7 @@ class Text {
                     lines.add(remainingWord);
                     remainingWords.removeFirst();
                 } else {
-                    lines[lines.lastIndex] += " " + remainingWord;
+                    lines[lines.lastIndex] += " $remainingWord";
                     remainingWords.removeFirst();
                 }
             }
